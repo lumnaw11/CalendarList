@@ -24,7 +24,7 @@ public struct CalendarList<T:Hashable, Content:View>: View {
     @State private var currentPage = 1
     
     @State public var selectedDate:Date = Date()
-    
+
     private let calendarDayHeight:CGFloat = 60
     private let calendar:Calendar
     
@@ -97,14 +97,16 @@ public struct CalendarList<T:Hashable, Content:View>: View {
             }
             
             Divider()
-                        
+            
             List {
                 ForEach(eventsForSelectedDate(), id:\.data) { event in
                     self.viewForEventBlock(event)
                 }
+                
             }
         }
     }
+    
     
     func updateMonthsAfterPagerSwipe(newIndex:Int) {
         let newMonths = self.months[self.currentPage].getSurroundingMonths()
@@ -136,7 +138,7 @@ public struct CalendarList<T:Hashable, Content:View>: View {
             }
         }) {
             #if !os(macOS)
-            Image(systemName: "lessthan").font(.body)
+            Image(systemName: "lessthan.circle").font(.body)
             #else
             Text("<").font(.body)
             #endif
@@ -151,7 +153,7 @@ public struct CalendarList<T:Hashable, Content:View>: View {
                     self.selectedDate = Date()
                 }
             }) {
-                Text("Today").font(.body)
+                Text("今日").font(.body)
             }
             .padding(.trailing, 20)
             Button(action: {
@@ -160,12 +162,15 @@ public struct CalendarList<T:Hashable, Content:View>: View {
                 }
             }) {
                 #if !os(macOS)
-                Image(systemName: "greaterthan").font(.body)
+                Image(systemName: "greaterthan.circle").font(.body)
                 #else
                 Text(">").font(.body)
                 #endif
             }
         }
     }
+    
+
+
 }
 
